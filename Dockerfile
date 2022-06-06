@@ -1,9 +1,25 @@
-#stage 1
-FROM node:latest as node
+FROM node:18-slim as node
 WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm i
 COPY . .
-RUN npm install
-RUN npm run build --prod
-#stage 2
+RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build --prod
 FROM nginx:alpine
 COPY --from=node /app/dist/wedding-ac /usr/share/nginx/html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
