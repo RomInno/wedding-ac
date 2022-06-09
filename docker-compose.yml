@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  frontend:
+    # build: .
+    image: wedding-ac
+    ports:
+      - 8080:80
+    networks:
+      - proxy
+    labels:
+      - "traefik.http.routers.front.rule=Host(`amandine-cedric.fr`)"
+      - "traefik.http.routers.front-s.rule=Host(`amandine-cedric.fr`)"
+      - "traefik.http.routers.front-s.entrypoints=websecure"
+      - "traefik.http.routers.front-s.tls.certresolver=myresolver"
+  
+networks:
+  proxy:
+    external: true
